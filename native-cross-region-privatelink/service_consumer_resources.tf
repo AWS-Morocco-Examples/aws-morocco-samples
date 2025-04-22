@@ -3,7 +3,9 @@ resource "aws_vpc" "consumer" {
   cidr_block           = "10.11.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
-  tags                 = { Name = "consumer-vpc" }
+  tags = {
+    Name = "consumer-vpc"
+  }
 }
 
 resource "aws_subnet" "consumer" {
@@ -12,7 +14,9 @@ resource "aws_subnet" "consumer" {
   cidr_block              = "10.11.1.0/24"
   availability_zone       = "eu-west-1a"
   map_public_ip_on_launch = true
-  tags                    = { Name = "consumer-subnet" }
+  tags = {
+    Name = "consumer-subnet"
+  }
 }
 
 resource "aws_internet_gateway" "consumer" {
@@ -56,7 +60,9 @@ resource "aws_security_group" "consumer_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = { Name = "consumer-sg" }
+  tags = {
+    Name = "consumer-sg"
+  }
 }
 
 resource "aws_instance" "consumer" {
@@ -66,7 +72,9 @@ resource "aws_instance" "consumer" {
   subnet_id              = aws_subnet.consumer.id
   key_name               = "<YOUR-SSH-KEY-NAME>"
   vpc_security_group_ids = [aws_security_group.consumer_sg.id]
-  tags                   = { Name = "consumer-ec2" }
+  tags = {
+    Name = "consumer-ec2"
+  }
 }
 
 resource "aws_vpc_endpoint" "consumer_endpoint" {

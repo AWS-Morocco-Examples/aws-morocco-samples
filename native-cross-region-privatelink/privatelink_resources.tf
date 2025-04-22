@@ -5,7 +5,9 @@ resource "aws_lb" "nlb" {
   load_balancer_type         = "network"
   subnets                    = [aws_subnet.service.id]
   enable_deletion_protection = false
-  tags                       = { Name = "service-nlb" }
+  tags = {
+    Name = "service-nlb"
+  }
 }
 
 resource "aws_lb_target_group" "tg" {
@@ -20,7 +22,9 @@ resource "aws_lb_target_group" "tg" {
     protocol = "TCP"
   }
 
-  tags = { Name = "service-tg" }
+  tags = {
+    Name = "service-tg"
+  }
 }
 
 resource "aws_lb_target_group_attachment" "attach" {
@@ -46,6 +50,7 @@ resource "aws_vpc_endpoint_service" "privatelink" {
   provider                   = aws.provider
   network_load_balancer_arns = [aws_lb.nlb.arn]
   acceptance_required        = false
+  supported_regions          = ["eu-west-1"]
 }
 
 data "aws_caller_identity" "current" {}

@@ -7,9 +7,6 @@ terraform {
   }
 }
 
-#----------------------------------------
-# Providers
-#----------------------------------------
 provider "aws" {
   alias  = "provider"
   region = "us-east-1"

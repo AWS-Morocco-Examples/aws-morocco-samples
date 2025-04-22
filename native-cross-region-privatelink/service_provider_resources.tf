@@ -3,7 +3,9 @@ resource "aws_vpc" "service" {
   cidr_block           = "10.10.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
-  tags                 = { Name = "service-vpc" }
+  tags = {
+    Name = "service-vpc"
+  }
 }
 
 resource "aws_subnet" "service" {
@@ -12,7 +14,9 @@ resource "aws_subnet" "service" {
   cidr_block              = "10.10.1.0/24"
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
-  tags                    = { Name = "service-subnet" }
+  tags = {
+    Name = "service-subnet"
+  }
 }
 
 resource "aws_internet_gateway" "service" {
@@ -56,7 +60,9 @@ resource "aws_security_group" "service_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = { Name = "service-sg" }
+  tags = {
+    Name = "service-sg"
+  }
 }
 
 resource "aws_instance" "service" {
@@ -66,5 +72,7 @@ resource "aws_instance" "service" {
   subnet_id              = aws_subnet.service.id
   key_name               = "<YOUR-SSH-KEY-NAME>"
   vpc_security_group_ids = [aws_security_group.service_sg.id]
-  tags                   = { Name = "service-ec2" }
+  tags = {
+    Name = "service-ec2"
+  }
 }
